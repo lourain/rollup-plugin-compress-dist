@@ -3,6 +3,10 @@
   "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/lourain/rollup-plugin-compress-dist.git"
+  },
   "scripts": {
     "dev": "tsc -w -p .",
     "build": "rimraf dist && tsc -p . && npm link"
