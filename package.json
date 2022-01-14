@@ -1,0 +1,22 @@
+{
+  "name": "rollup-plugin-compress-dist",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsc -w -p .",
+    "build": "rimraf dist && tsc -p . && npm link"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "@types/node": "^17.0.8",
+    "chalk": "^4.1.2",
+    "compressing": "^1.5.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.4",
+    "vite": "^2.7.10"
+  }
+}
