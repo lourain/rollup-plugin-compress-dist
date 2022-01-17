@@ -5,32 +5,23 @@ import compressing from "compressing";
 import chalk from "chalk";
 import { createWriteStream } from "fs";
 
-export interface CompressOptions<
-  N extends string,
-  T extends string = "zip" | "tar" | "tgz"
-> {
-  archiverName?: ArchiverName<N, T>;
-  type: T;
+export interface CompressOptions<Type extends "zip" | "tar" | "tgz"> {
+  archiverName?: ArchiverName<Type>;
+  type: Type;
   sourceName?: string;
 }
+type ArchiverName<T> = T extends "zip" | "tar"
+  ? `${string}.${T}`
+  : T extends "tgz"
+  ? `${string}.tar.gz`
+  : never;
 
-type ArchiverName<
-  N extends string,
-  T extends string = "zip" | "tar" | "tgz"
-> = T extends `${"zip" | "tar"}`
-  ? `${N}.${T}`
-  : T extends `${"tgz"}`
-  ? `${N}.tar.gz`
-  : null;
-
-const initOpts: CompressOptions<string, "tgz"> = {
+const initOpts: CompressOptions<'tgz'> = {
   archiverName: "dist.tar.gz",
   type: "tgz",
   sourceName: "dist",
 };
-export default function compressDist(
-  opts?: CompressOptions<string, "zip" | "tar" | "tgz">
-): Plugin {
+export default function compressDist(opts?: CompressOptions<'tgz'>): Plugin {
   const { sourceName, archiverName, type } = opts || initOpts;
   return {
     name: "compress-dist",
@@ -42,7 +33,9 @@ export default function compressDist(
       const sourceStream = new compressing[type].Stream();
 
       destStream.on("finish", () => {
-        console.log(chalk.cyan(`compress-dist:  ${sourceName} compress completed!`));
+        console.log(
+          chalk.cyan(`compress-dist:  ${sourceName} compress completed!`)
+        );
       });
 
       destStream.on("error", (err) => {
