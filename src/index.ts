@@ -21,7 +21,7 @@ const initOpts: CompressOptions<'tgz'> = {
   type: "tgz",
   sourceName: "dist",
 };
-export default function compressDist(opts?: CompressOptions<'tgz'>): Plugin {
+export default function compressDist(opts?: CompressOptions<"zip" | "tar" | "tgz">): Plugin {
   const { sourceName, archiverName, type } = opts || initOpts;
   return {
     name: "compress-dist",
