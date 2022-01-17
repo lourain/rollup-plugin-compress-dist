@@ -1,9 +1,9 @@
 import { Plugin } from "rollup";
-export interface CompressOptions<N extends string, T extends string = "zip" | "tar" | "tgz"> {
-    archiverName?: ArchiverName<N, T>;
-    type: T;
+export interface CompressOptions<Type extends "zip" | "tar" | "tgz"> {
+    archiverName?: ArchiverName<Type>;
+    type: Type;
     sourceName?: string;
 }
-declare type ArchiverName<N extends string, T extends string = "zip" | "tar" | "tgz"> = T extends `${"zip" | "tar"}` ? `${N}.${T}` : T extends `${"tgz"}` ? `${N}.tar.gz` : null;
-export default function compressDist(opts?: CompressOptions<string, "zip" | "tar" | "tgz">): Plugin;
+declare type ArchiverName<T> = T extends "zip" | "tar" ? `${string}.${T}` : T extends "tgz" ? `${string}.tar.gz` : never;
+export default function compressDist(opts?: CompressOptions<'tgz'>): Plugin;
 export {};
