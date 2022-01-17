@@ -1,11 +1,11 @@
 {
   "name": "rollup-plugin-compress-dist",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "dist/index.js",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/lourain/rollup-plugin-compress-dist.git"
+    "type": "git",
+    "url": "https://github.com/lourain/rollup-plugin-compress-dist.git"
   },
   "scripts": {
     "dev": "tsc -w -p .",

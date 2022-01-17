@@ -5,5 +5,5 @@ export interface CompressOptions<Type extends "zip" | "tar" | "tgz"> {
     sourceName?: string;
 }
 declare type ArchiverName<T> = T extends "zip" | "tar" ? `${string}.${T}` : T extends "tgz" ? `${string}.tar.gz` : never;
-export default function compressDist(opts?: CompressOptions<'tgz'>): Plugin;
+export default function compressDist(opts?: CompressOptions<"zip" | "tar" | "tgz">): Plugin;
 export {};
