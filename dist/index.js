@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// import { Plugin } from "rollup";
 const process_1 = require("process");
 const path_1 = require("path");
 const compressing_1 = __importDefault(require("compressing"));
@@ -17,7 +18,8 @@ function compressDist(opts) {
     const { sourceName, archiverName, type } = opts || initOpts;
     return {
         name: "compress-dist",
-        closeBundle() {
+        buildEnd() {
+            console.log("buildEnd");
             const rootPath = (0, process_1.cwd)();
             const sourcePath = (0, path_1.resolve)(rootPath, sourceName);
             const destStream = (0, fs_1.createWriteStream)((0, path_1.resolve)(rootPath, archiverName));
