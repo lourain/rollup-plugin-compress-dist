@@ -27,7 +27,7 @@ export default function compressDist(
   const { sourceName, archiverName, type } = opts || initOpts;
   return {
     name: "compress-dist",
-    buildEnd() {
+    closeBundle() {
       console.log("buildEnd");
       const rootPath = cwd();
       const sourcePath = resolve(rootPath, sourceName);
