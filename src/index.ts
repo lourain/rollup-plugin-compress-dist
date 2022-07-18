@@ -28,9 +28,10 @@ export default function compressDist(
   return {
     name: "compress-dist",
     closeBundle() {
-      console.log("buildEnd");
+      console.log("closeBundle");
       const rootPath = cwd();
       const sourcePath = resolve(rootPath, sourceName);
+      chalk.bgBlue(`sourcePath: ${sourcePath}`);
 
       const destStream = createWriteStream(resolve(rootPath, archiverName));
       const sourceStream = new compressing[type].Stream();

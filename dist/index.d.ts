@@ -6,6 +6,6 @@ export interface CompressOptions<Type extends "zip" | "tar" | "tgz"> {
 declare type ArchiverName<T> = T extends "zip" | "tar" ? `${string}.${T}` : T extends "tgz" ? `${string}.tar.gz` : never;
 export default function compressDist(opts?: CompressOptions<"zip" | "tar" | "tgz">): {
     name: string;
-    buildEnd(): void;
+    closeBundle(): void;
 };
 export {};

@@ -18,10 +18,11 @@ function compressDist(opts) {
     const { sourceName, archiverName, type } = opts || initOpts;
     return {
         name: "compress-dist",
-        buildEnd() {
-            console.log("buildEnd");
+        closeBundle() {
+            console.log("closeBundle");
             const rootPath = (0, process_1.cwd)();
             const sourcePath = (0, path_1.resolve)(rootPath, sourceName);
+            chalk_1.default.bgBlue(`sourcePath: ${sourcePath}`);
             const destStream = (0, fs_1.createWriteStream)((0, path_1.resolve)(rootPath, archiverName));
             const sourceStream = new compressing_1.default[type].Stream();
             destStream.on("finish", () => {
