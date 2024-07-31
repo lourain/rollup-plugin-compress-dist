@@ -1,4 +1,3 @@
-// import { Plugin } from "rollup";
 import { cwd } from "process";
 import { resolve } from "path";
 import compressing from "compressing";
@@ -9,6 +8,7 @@ export interface CompressOptions<Type extends "zip" | "tar" | "tgz"> {
   archiverName?: ArchiverName<Type>;
   type: Type;
   sourceName?: string;
+  ignoreBase?: boolean;
 }
 type ArchiverName<T> = T extends "zip" | "tar"
   ? `${string}.${T}`
@@ -20,11 +20,12 @@ const initOpts: CompressOptions<"tgz"> = {
   archiverName: "dist.tar.gz",
   type: "tgz",
   sourceName: "dist",
+  ignoreBase: false,
 };
 export default function compressDist(
   opts?: CompressOptions<"zip" | "tar" | "tgz">
 ) {
-  const { sourceName, archiverName, type } = opts || initOpts;
+  const { sourceName, archiverName, type, ignoreBase } = opts || initOpts;
   return {
     name: "compress-dist",
     closeBundle() {
@@ -46,7 +47,9 @@ export default function compressDist(
         throw err;
       });
 
-      sourceStream.addEntry(sourcePath);
+      sourceStream.addEntry(sourcePath, {
+        ignoreBase,
+      });
       sourceStream.pipe(destStream);
     },
   };

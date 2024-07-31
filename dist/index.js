@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// import { Plugin } from "rollup";
 const process_1 = require("process");
 const path_1 = require("path");
 const compressing_1 = __importDefault(require("compressing"));
@@ -13,9 +12,10 @@ const initOpts = {
     archiverName: "dist.tar.gz",
     type: "tgz",
     sourceName: "dist",
+    ignoreBase: false,
 };
 function compressDist(opts) {
-    const { sourceName, archiverName, type } = opts || initOpts;
+    const { sourceName, archiverName, type, ignoreBase } = opts || initOpts;
     return {
         name: "compress-dist",
         closeBundle() {
@@ -31,7 +31,9 @@ function compressDist(opts) {
             destStream.on("error", (err) => {
                 throw err;
             });
-            sourceStream.addEntry(sourcePath);
+            sourceStream.addEntry(sourcePath, {
+                ignoreBase,
+            });
             sourceStream.pipe(destStream);
         },
     };
